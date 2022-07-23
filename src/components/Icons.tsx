@@ -25,6 +25,7 @@ export const ButtonIconSVG = (props: any) => (<svg
 >
   {props.children}
 // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
+// @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
 </svg>);
 
 // |> Play
@@ -66,8 +67,10 @@ export const PrevIconSVG = () => (
 
 
 // Volume
+export const VolumeIconSVG = ({
+  children
 // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
-export const VolumeIconSVG = ({children}) => (<svg
+}: any) => (<svg
   className="sb-soundplayer-icon"
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 75 75"
@@ -75,6 +78,7 @@ export const VolumeIconSVG = ({children}) => (<svg
   stroke="currentColor"
 >
   {children}
+// @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
 // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
 </svg>);
 export const VolumeIconLoudSVG = () => (
