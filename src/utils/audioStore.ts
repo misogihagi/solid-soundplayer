@@ -1,7 +1,7 @@
 // handling multiple audio on the page helpers
-let _playedAudios = [];
+let _playedAudios: any = [];
 
-function each (arr, cb) {
+function each (arr: any, cb: any) {
   if (arr) {
     for (let i = 0, len = arr.length; i < len; i++) {
       if (arr[i] && cb(arr[i], i, arr)) {
@@ -11,18 +11,18 @@ function each (arr, cb) {
   }
 }
 
-export function stopAllOther (playing) {
-  each(_playedAudios, soundCloudAudio => {
+export function stopAllOther (playing: any) {
+  each(_playedAudios, (soundCloudAudio: any) => {
     if (soundCloudAudio.playing && soundCloudAudio.playing !== playing) {
       soundCloudAudio.stop();
     }
   });
 }
 
-export function addToPlayedStore (soundCloudAudio) {
+export function addToPlayedStore (soundCloudAudio: any) {
   let isPresent = false;
 
-  each(_playedAudios, _soundCloudAudio => {
+  each(_playedAudios, (_soundCloudAudio: any) => {
     if (_soundCloudAudio.playing === soundCloudAudio.playing) {
       isPresent = true;
       return true;
@@ -35,7 +35,7 @@ export function addToPlayedStore (soundCloudAudio) {
 }
 
 export function resetPlayedStore () {
-  each(_playedAudios, soundCloudAudio => {
+  each(_playedAudios, (soundCloudAudio: any) => {
     soundCloudAudio.stop();
   });
 

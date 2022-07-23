@@ -1,9 +1,25 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import ClassNames from 'classnames';
 
-class Timer extends Component {
-  static prettyTime(time) {
+type OwnProps = {
+    className?: string;
+    duration?: string | number;
+    currentTime?: string | number;
+};
+
+type Props = OwnProps & typeof Timer.defaultProps;
+
+class Timer extends Component<Props> {
+  static defaultProps = {
+    duration: 0,
+    currentTime: 0
+  };
+
+  props: any;
+
+  static prettyTime(time: any) {
     let hours = Math.floor(time / 3600);
     let mins = '0' + Math.floor((time % 3600) / 60);
     let secs = '0' + Math.floor((time % 60));
@@ -11,6 +27,7 @@ class Timer extends Component {
     mins = mins.substr(mins.length - 2);
     secs = secs.substr(secs.length - 2);
 
+    // @ts-expect-error TS(2345): Argument of type 'string' is not assignable to par... Remove this comment to see the full error message
     if (!isNaN(secs)) {
       if (hours) {
         return `${hours}:${mins}:${secs}`;
@@ -30,28 +47,13 @@ class Timer extends Component {
     }
 
     return (
+      // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
       <div className={classNames} style={style}>
         {Timer.prettyTime(currentTime)} / {Timer.prettyTime(duration)}
+        {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
       </div>
     );
   }
 }
-
-Timer.propTypes = {
-  className: PropTypes.string,
-  duration: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
-  currentTime: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
-};
-
-Timer.defaultProps = {
-  duration: 0,
-  currentTime: 0
-};
 
 export default Timer;

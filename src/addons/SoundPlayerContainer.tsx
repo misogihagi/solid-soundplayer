@@ -2,13 +2,29 @@
 // This container is deprecated, please use `withSoundCloudAudio` instead
 // HOC pattern docs - https://reactjs.org/docs/higher-order-components.html
 
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'soun... Remove this comment to see the full error message
 import SoundCloudAudio from 'soundcloud-audio';
+// @ts-expect-error TS(6142): Module './withSoundCloudAudio' was resolved to '/h... Remove this comment to see the full error message
 import withSoundCloudAudio from './withSoundCloudAudio';
 
-class SoundPlayerContainer extends Component {
-  wrapChild(child) {
+type Props = {
+    streamUrl?: string;
+    resolveUrl?: string;
+    clientId?: string;
+    soundCloudAudio?: any; // TODO: PropTypes.instanceOf(SoundCloudAudio)
+    onStartTrack?: (...args: any[]) => any;
+    onStopTrack?: (...args: any[]) => any;
+    onPauseTrack?: (...args: any[]) => any;
+    onVolumeChange?: (...args: any[]) => any;
+    onReady?: (...args: any[]) => any;
+};
+
+class SoundPlayerContainer extends Component<Props> {
+  props: any;
+
+  wrapChild(child: any) {
     return React.cloneElement(child, this.props);
   }
 
@@ -32,23 +48,13 @@ class SoundPlayerContainer extends Component {
     }
 
     return (
+      // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
       <span>
         {React.Children.map(children, ::this.wrapChild)}
+        {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
       </span>
     );
   }
 }
-
-SoundPlayerContainer.propTypes = {
-  streamUrl: PropTypes.string,
-  resolveUrl: PropTypes.string,
-  clientId: PropTypes.string,
-  soundCloudAudio: PropTypes.instanceOf(SoundCloudAudio),
-  onStartTrack: PropTypes.func,
-  onStopTrack: PropTypes.func,
-  onPauseTrack: PropTypes.func,
-  onVolumeChange: PropTypes.func,
-  onReady: PropTypes.func
-};
 
 export default withSoundCloudAudio(SoundPlayerContainer);

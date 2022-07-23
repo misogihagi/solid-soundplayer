@@ -1,10 +1,29 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'soun... Remove this comment to see the full error message
 import SoundCloudAudio from 'soundcloud-audio';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import ClassNames from 'classnames';
 
-class Progress extends Component {
-  handleSeekTrack(e) {
+type OwnProps = {
+    className?: string;
+    innerClassName?: string;
+    innerStyle?: any;
+    value?: number;
+    onSeekTrack?: (...args: any[]) => any;
+    soundCloudAudio?: any; // TODO: PropTypes.instanceOf(SoundCloudAudio)
+};
+
+type Props = OwnProps & typeof Progress.defaultProps;
+
+class Progress extends Component<Props> {
+  static defaultProps = {
+    value: 0
+  };
+
+  props: any;
+
+  handleSeekTrack(e: any) {
     const { onSeekTrack, soundCloudAudio } = this.props;
     const xPos = (e.pageX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
 
@@ -41,24 +60,14 @@ class Progress extends Component {
     innerStyle = Object.assign({}, innerStyle, {width: `${value}%`});
 
     return (
+      // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
       <div className={classNames} style={style} onClick={::this.handleSeekTrack}>
+        // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
         <div className={innerClassNames} style={innerStyle} />
+      // @ts-expect-error TS(2304): Cannot find name 'div'.
       </div>
     );
   }
 }
-
-Progress.propTypes = {
-  className: PropTypes.string,
-  innerClassName: PropTypes.string,
-  innerStyle: PropTypes.object,
-  value: PropTypes.number,
-  onSeekTrack: PropTypes.func,
-  soundCloudAudio: PropTypes.instanceOf(SoundCloudAudio)
-};
-
-Progress.defaultProps = {
-  value: 0
-};
 
 export default Progress;

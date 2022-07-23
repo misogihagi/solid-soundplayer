@@ -1,11 +1,33 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'soun... Remove this comment to see the full error message
 import SoundCloudAudio from 'soundcloud-audio';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'clas... Remove this comment to see the full error message
 import ClassNames from 'classnames';
+// @ts-expect-error TS(6142): Module './Icons' was resolved to '/home/user/ドキュメン... Remove this comment to see the full error message
 import { VolumeIconLoudSVG, VolumeIconMuteSVG } from './Icons';
 
-class VolumeControl extends Component {
-  handleVolumeChange(e) {
+type OwnProps = {
+    className?: string;
+    buttonClassName?: string;
+    rangeClassName?: string;
+    volume?: number;
+    onVolumeChange?: (...args: any[]) => any;
+    onToggleMute?: (...args: any[]) => any;
+    soundCloudAudio?: any; // TODO: PropTypes.instanceOf(SoundCloudAudio)
+};
+
+type Props = OwnProps & typeof VolumeControl.defaultProps;
+
+class VolumeControl extends Component<Props> {
+  static defaultProps = {
+    volume: 1,
+    isMuted: 0
+  };
+
+  props: any;
+
+  handleVolumeChange(e: any) {
     const {
       onVolumeChange,
       onToggleMute,
@@ -27,7 +49,7 @@ class VolumeControl extends Component {
     onVolumeChange && onVolumeChange.call(this, xPos, e);
   }
 
-  handleMute(e) {
+  handleMute(e: any) {
     const { onToggleMute, soundCloudAudio } = this.props;
 
     if (soundCloudAudio && !isNaN(soundCloudAudio.audio.muted)) {
@@ -55,31 +77,24 @@ class VolumeControl extends Component {
     const rangeClassNames = ClassNames('sb-soundplayer-volume-range', rangeClassName);
 
     return (
+      // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
       <div className={classNames}>
+        {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
         <button className={buttonClassNames} onClick={::this.handleMute}>
+          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
           {isMuted ? <VolumeIconMuteSVG /> : <VolumeIconLoudSVG />}
+          {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
         </button>
+        // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
         <div>
+          {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
           <input className={rangeClassNames} type="range" min="0" max="100" step="1" value={value} onChange={::this.handleVolumeChange} />
+          {/* @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message */}
         </div>
+      // @ts-expect-error TS(2304): Cannot find name 'div'.
       </div>
     );
   }
 }
-
-VolumeControl.propTypes = {
-  className: PropTypes.string,
-  buttonClassName: PropTypes.string,
-  rangeClassName: PropTypes.string,
-  volume: PropTypes.number,
-  onVolumeChange: PropTypes.func,
-  onToggleMute: PropTypes.func,
-  soundCloudAudio: PropTypes.instanceOf(SoundCloudAudio)
-};
-
-VolumeControl.defaultProps = {
-  volume: 1,
-  isMuted: 0
-};
 
 export default VolumeControl;

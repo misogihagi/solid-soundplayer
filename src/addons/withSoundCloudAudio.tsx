@@ -1,4 +1,6 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import React, { Component } from 'react';
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'soun... Remove this comment to see the full error message
 import SoundCloudAudio from 'soundcloud-audio';
 import hoistStatics from 'hoist-non-react-statics';
 import {
@@ -7,13 +9,18 @@ import {
   resetPlayedStore
 } from '../utils/audioStore.js';
 
-function getDisplayName (WrappedComponent) {
+function getDisplayName (WrappedComponent: any) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-export default function withSoundCloudAudio (WrappedComponent) {
+export default function withSoundCloudAudio (WrappedComponent: any) {
   class WithSoundCloudAudio extends Component {
-    constructor(props, context) {
+    mounted: any;
+    props: any;
+    setState: any;
+    soundCloudAudio: any;
+    state: any;
+    constructor(props: any, context: any) {
       super(props, context);
 
       if (!props.clientId && !props.soundCloudAudio && !props.streamUrl) {
@@ -53,7 +60,7 @@ export default function withSoundCloudAudio (WrappedComponent) {
       this.listenAudioEvents();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: any) {
       this.props.streamUrl !== prevProps.streamUrl &&
         this.init(prevProps);
     }
@@ -65,7 +72,7 @@ export default function withSoundCloudAudio (WrappedComponent) {
       this.soundCloudAudio.unbindAll();
     }
 
-    init(prevProps) {
+    init(prevProps: any) {
       if (this.props.streamUrl) {
         this.setState({ hasSetStartTime: false }, () => {
           this.requestAudio();
@@ -101,7 +108,7 @@ export default function withSoundCloudAudio (WrappedComponent) {
       if (streamUrl) {
         soundCloudAudio.preload(streamUrl, preloadType);
       } else if (resolveUrl) {
-        soundCloudAudio.resolve(resolveUrl, (data) => {
+        soundCloudAudio.resolve(resolveUrl, (data: any) => {
           if (!this.mounted) {
             return;
           }
@@ -200,6 +207,7 @@ export default function withSoundCloudAudio (WrappedComponent) {
 
     render() {
       return (
+        // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <WrappedComponent
           {...this.props}
           soundCloudAudio={this.soundCloudAudio}
@@ -209,8 +217,8 @@ export default function withSoundCloudAudio (WrappedComponent) {
     }
   }
 
-  WithSoundCloudAudio.displayName = `withSoundCloudAudio(${getDisplayName(WrappedComponent)})`;
-  WithSoundCloudAudio.WrappedComponent = WrappedComponent;
+  (WithSoundCloudAudio as any).displayName = `withSoundCloudAudio(${getDisplayName(WrappedComponent)})`;
+  (WithSoundCloudAudio as any).WrappedComponent = WrappedComponent;
 
   return hoistStatics(WithSoundCloudAudio, WrappedComponent);
 }
