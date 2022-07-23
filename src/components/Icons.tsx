@@ -67,14 +67,14 @@ export const PrevIconSVG = () => (
 
 // Volume
 // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
-export const VolumeIconSVG = (props: any) => (<svg
+export const VolumeIconSVG = ({children}) => (<svg
   className="sb-soundplayer-icon"
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 75 75"
   fill="currentColor"
   stroke="currentColor"
 >
-  {props.children}
+  {children}
 // @ts-expect-error TS(7026): JSX element implicitly has type 'any' because no i... Remove this comment to see the full error message
 </svg>);
 export const VolumeIconLoudSVG = () => (
